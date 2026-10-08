@@ -26,6 +26,8 @@ Le collecteur tourne en continu, lit les transcriptions de Claude Code de façon
 
 Barre horizontale en bas du bureau, pour des projets rangés en `~/Documents/<groupe>/<projet>`.
 
+<p align="center"><img src="docs/projects-bar.png" alt="Fenêtre centrale de recherche et barre des projets récents" width="760"></p>
+
 - **Projets récents** : les 8 derniers projets ouverts (depuis la barre, Claude Code ou VS Code), mis à jour en direct.
 - **Actions** : VS Code, Claude, Terminal, Fichiers, GitHub, Copier le chemin — à la souris ou au clavier (`V` `C` `T` `F` `G` `Y`).
 - **Branches** : choisir une branche (locale, distante ou nouvelle) ; une autre branche que l'actuelle s'ouvre dans un worktree séparé (`projet/.worktrees/<branche>`), sans toucher à votre copie de travail.
