@@ -1,0 +1,6 @@
+# Icons are copied from the system by install.sh (third-party trademarks, not redistributed here)
+plugins/*/assets/
+__pycache__/
+*.pyc
+*.bak.*
+.worktrees/
