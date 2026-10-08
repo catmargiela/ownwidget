@@ -23,7 +23,8 @@ import time
 HOME = os.path.expanduser("~")
 DOCUMENTS = os.path.join(HOME, "Documents")
 TICK = 2
-GPU_EVERY = 5            # ticks between nvidia-smi / process scans while the GPU is awake
+GPU_EVERY = 15           # ticks between nvidia-smi / open-file scans while the GPU is awake
+PROC_EVERY = 3           # ticks between per-process CPU/memory scans (reads every /proc/<pid>/stat)
 SCAN_EVERY = 30 * 60     # seconds between big-folder scans
 HISTORY = 60             # samples kept for sparklines
 CACHE_KEEP = {"omarchy", "quickshell", "fontconfig"}   # never offered for cleaning
@@ -367,9 +368,10 @@ def cmd_watch():
     threading.Thread(target=scan, daemon=True).start()
     counters.cpu()
     counters.top_processes(0)
+    top_cpu, top_mem, last_proc = [], [], time.time()
     while os.getppid() == parent:
         now = time.time()
-        dt, last = now - last, now
+        last = now
         state = gpu.state()
         if state == "active" and tick % GPU_EVERY == 0:
             gpu.refresh()
@@ -377,7 +379,9 @@ def cmd_watch():
             gpu.details = {}
         if now - big["scannedAt"] > SCAN_EVERY and not big["scanning"]:
             threading.Thread(target=scan, daemon=True).start()
-        top_cpu, top_mem = counters.top_processes(dt)
+        if tick % PROC_EVERY == 0:
+            top_cpu, top_mem = counters.top_processes(now - last_proc)
+            last_proc = now
         with lock:
             big_rows, scanned_at, scanning = list(big["rows"]), big["scannedAt"], big["scanning"]
         snap = {
