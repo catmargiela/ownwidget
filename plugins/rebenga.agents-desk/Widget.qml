@@ -26,6 +26,17 @@ Item {
     return false
   }
 
+  // Blinking is a slow on/off toggle, not an animation: a continuous animation makes the
+  // compositor repaint at the monitor's refresh rate (240 Hz here) and costs ~40 % of a core.
+  property bool blink: true
+  readonly property bool anyWorking: (snap.sessions || []).some(function(s) { return s.state === "working" })
+  Timer {
+    interval: 900; repeat: true
+    running: root.needsYou || root.anyWorking
+    onTriggered: root.blink = !root.blink
+    onRunningChanged: if (!running) root.blink = true
+  }
+
   readonly property color fg: Color.foreground
   readonly property color accent: Color.accent
   readonly property color urgent: Color.urgent
@@ -157,14 +168,8 @@ Item {
         radius: Math.max(6, Style.cornerRadius)
         color: Qt.rgba(Color.background.r, Color.background.g, Color.background.b, 0.82)
         border.width: root.needsYou ? 2 : 1
-        border.color: root.needsYou ? root.urgent : Qt.rgba(root.fg.r, root.fg.g, root.fg.b, 0.15)
-
-        SequentialAnimation on border.color {
-          running: root.needsYou
-          loops: Animation.Infinite
-          ColorAnimation { to: root.urgent; duration: 700 }
-          ColorAnimation { to: Qt.rgba(root.urgent.r, root.urgent.g, root.urgent.b, 0.2); duration: 700 }
-        }
+        border.color: !root.needsYou ? Qt.rgba(root.fg.r, root.fg.g, root.fg.b, 0.15)
+                    : root.blink ? root.urgent : Qt.rgba(root.urgent.r, root.urgent.g, root.urgent.b, 0.25)
 
         ColumnLayout {
           id: content
@@ -227,12 +232,7 @@ Item {
                   Rectangle {
                     width: 9; height: 9; radius: 5
                     color: root.stateColor(modelData.state)
-                    SequentialAnimation on opacity {
-                      running: modelData.state === "working"
-                      loops: Animation.Infinite
-                      NumberAnimation { to: 0.25; duration: 600 }
-                      NumberAnimation { to: 1; duration: 600 }
-                    }
+                    opacity: modelData.state === "working" && !root.blink ? 0.3 : 1
                   }
                   Text {
                     text: modelData.project
