@@ -1,39 +1,39 @@
 # ownwidget
 
-Widgets de bureau pour [Omarchy](https://omarchy.org) (Hyprland + shell Quickshell), pensés pour travailler avec Claude Code et Codex.
+Desktop widgets for [Omarchy](https://omarchy.org) (Hyprland + the Quickshell-based shell), built for working with Claude Code and Codex.
 
-- **Agents** : une carte sur le bureau qui suit vos sessions Claude Code / Codex.
-- **Projets** : une barre en bas de l'écran pour ouvrir, créer et ranger vos projets de `~/Documents`.
+- **Agents**: a desktop card that tracks your Claude Code / Codex sessions.
+- **Projects**: a bar at the bottom of the screen to open, create and organise the projects in `~/Documents`.
 
-Tout est écrit en QML (plugins du shell Omarchy) avec un petit script Python par widget, sans dépendance externe.
+Everything is written in QML (Omarchy shell plugins) with one small Python script per widget, no external dependencies. The interface itself is in French.
 
 ## Agents (`rebenga.agents-desk`)
 
-Carte posée sur le bureau, sous les fenêtres.
+A card that sits on the desktop, below your windows.
 
-<p align="center"><img src="docs/agents-desk.png" alt="Carte Agents : sessions actives, activité, limites et statistiques" width="380"></p>
+<p align="center"><img src="docs/agents-desk.png" alt="Agents card: active sessions, activity, limits and stats" width="380"></p>
 
-- **Sessions actives** : une carte par session Claude Code ou Codex (projet, durée, dernière action). Un clic saute sur le terminal de la session, même sur un autre espace de travail.
-- **Alerte** : le cadre clignote quand un agent attend une permission ou votre réponse ; notification avec un bouton « Y aller ».
-- **Nouvelle session** : notification « Y aller » à chaque nouvelle session.
-- **Activité** : les dernières actions des agents (« édite X », « lance : … »).
-- **Limites et statistiques** : jauges de la session 5 h et de la semaine, projection au rythme actuel, tokens du jour, histogramme sur 7 jours (données du plugin `omarchy.agents`).
-- **Raccourci** : `collect.py --jump` passe d'un terminal d'agent au suivant (ceux qui vous attendent d'abord).
+- **Active sessions**: one card per Claude Code or Codex session (project, uptime, last action). Clicking it jumps to the session's terminal, even on another workspace.
+- **Alert**: the frame pulses when an agent is waiting for a permission or for your reply, and a notification offers a "Y aller" (go there) button.
+- **New session**: a "Y aller" notification for every new session.
+- **Activity**: the agents' latest actions ("édite X" = edits X, "lance : …" = runs …).
+- **Limits and stats**: gauges for the 5-hour session and the week, a projection at the current pace, today's tokens and a 7-day histogram (data from the `omarchy.agents` plugin).
+- **Shortcut**: `collect.py --jump` cycles through agent terminals, the ones waiting on you first.
 
-Le collecteur tourne en continu, lit les transcriptions de Claude Code de façon incrémentale et n'écrit rien sur le disque.
+The collector runs continuously, reads Claude Code transcripts incrementally and never writes to disk.
 
-## Projets (`rebenga.projects-bar`)
+## Projects (`rebenga.projects-bar`)
 
-Barre horizontale en bas du bureau, pour des projets rangés en `~/Documents/<groupe>/<projet>`.
+A horizontal bar at the bottom of the desktop, for projects laid out as `~/Documents/<group>/<project>`.
 
-<p align="center"><img src="docs/projects-bar.png" alt="Fenêtre centrale de recherche et barre des projets récents" width="760"></p>
+<p align="center"><img src="docs/projects-bar.png" alt="Centre search picker and the recent-projects bar" width="760"></p>
 
-- **Projets récents** : les 8 derniers projets ouverts (depuis la barre, Claude Code ou VS Code), mis à jour en direct.
-- **Actions** : VS Code, Claude, Terminal, Fichiers, GitHub, Copier le chemin — à la souris ou au clavier (`V` `C` `T` `F` `G` `Y`).
-- **Branches** : choisir une branche (locale, distante ou nouvelle) ; une autre branche que l'actuelle s'ouvre dans un worktree séparé (`projet/.worktrees/<branche>`), sans toucher à votre copie de travail.
-- **Fenêtre centrale** : recherche dans tous les projets et groupes (`omarchy-shell projects picker`).
-- **Créer** : un groupe, ou un projet en simple dossier, dépôt git local ou dépôt GitHub (via `gh`, avec choix du propriétaire et de la visibilité). Confettis à la clé.
-- **Supprimer** : vers la corbeille système uniquement, après une alerte qui signale le travail non commité ou non poussé ; bouton « Restaurer » dans la notification.
+- **Recent projects**: the last 8 projects you opened (from the bar, Claude Code or VS Code), updated live.
+- **Actions**: VS Code, Claude, Terminal, Files, GitHub, Copy path — with the mouse or the keyboard (`V` `C` `T` `F` `G` `Y`).
+- **Branches**: pick a branch (local, remote or new); any branch other than the current one opens in a separate worktree (`project/.worktrees/<branch>`), so your working copy is never touched.
+- **Centre picker**: search across every project and group (`omarchy-shell projects picker`).
+- **Create**: a group, or a project as a plain folder, a local git repo or a GitHub repo (through `gh`, with owner and visibility selection). Confetti included.
+- **Delete**: to the system trash only, after an alert that flags uncommitted or unpushed work; a "Restaurer" (restore) button in the notification undoes it.
 
 ## Installation
 
@@ -43,24 +43,24 @@ cd ~/Documents/perso/ownwidget
 ./install.sh
 ```
 
-Le script crée des liens dans `~/.config/omarchy/plugins/`, copie les icônes d'applications depuis le système, active les plugins et redémarre le shell. Il affiche aussi les raccourcis clavier conseillés :
+The script links the plugins into `~/.config/omarchy/plugins/`, copies the app icons from your system, enables the plugins and restarts the shell. It also prints the suggested keybindings:
 
-| Raccourci | Action |
+| Shortcut | Action |
 |---|---|
-| `Super + Alt + A` | Terminal de l'agent suivant |
-| `Super + Alt + P` | Fenêtre centrale des projets |
+| `Super + Alt + A` | Next agent terminal |
+| `Super + Alt + P` | Projects centre picker |
 
-Désinstaller : `./install.sh --uninstall`.
+Uninstall: `./install.sh --uninstall`.
 
-Prérequis : Omarchy (shell Quickshell), Python 3, `git`, `gh` (création GitHub), `gio` (corbeille), `notify-send`, une police Nerd Font (JetBrainsMono Nerd Font).
+Requirements: Omarchy (Quickshell shell), Python 3, `git`, `gh` (GitHub creation), `gio` (trash), `notify-send`, a Nerd Font (JetBrainsMono Nerd Font).
 
 ## Notes
 
-- **Disque** : les widgets ne font que lire. Seul fichier écrit : un historique des ouvertures plafonné à 200 entrées dans `~/.local/state/rebenga-projects/history.json`.
-- **Processeur** : les deux scripts de surveillance vérifient les dates de modification toutes les 2 s et n'envoient de données au shell que lorsqu'il y a un changement.
-- **Développement** : le rechargement à chaud du shell garde l'ancien QML en cache ; après une modification, lancez `omarchy restart shell`.
-- **Icônes** : les icônes VS Code, Claude et Fichiers ne sont pas incluses dans le dépôt (marques de leurs éditeurs) ; `install.sh` les copie depuis votre système.
+- **Disk**: the widgets only read. The single file written is an open-history capped at 200 entries in `~/.local/state/rebenga-projects/history.json`.
+- **CPU**: both watchers check modification times every 2 s and only send data to the shell when something changed.
+- **Development**: the shell's hot reload keeps the old QML cached; after editing, run `omarchy restart shell`.
+- **Icons**: the VS Code, Claude and Files icons are not shipped in the repo (they are their owners' trademarks); `install.sh` copies them from your system.
 
-## Licence
+## License
 
 MIT
