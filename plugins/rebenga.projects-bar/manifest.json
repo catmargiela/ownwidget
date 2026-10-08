@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "rebenga.projects-bar",
+  "name": "Projets (barre)",
+  "version": "0.1.0",
+  "author": "rebenga",
+  "description": "Barre horizontale des projets de ~/Documents : ouvrir dans VS Code, Claude, terminal, fichiers, GitHub ; créer un projet (dossier, git local ou dépôt GitHub).",
+  "kinds": ["service"],
+  "entryPoints": {
+    "service": "Bar.qml"
+  }
+}
