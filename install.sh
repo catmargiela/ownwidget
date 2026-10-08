@@ -6,7 +6,7 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEST="${XDG_CONFIG_HOME:-$HOME/.config}/omarchy/plugins"
-PLUGINS=(rebenga.agents-desk rebenga.projects-bar)
+PLUGINS=(rebenga.agents-desk rebenga.projects-bar rebenga.system-desk)
 
 say() { printf '\033[1m%s\033[0m\n' "$*"; }
 
