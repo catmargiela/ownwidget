@@ -30,3 +30,22 @@ Barre horizontale en bas du bureau, pour des projets rangés en `~/Documents/<gr
 - **Fenêtre centrale** : recherche dans tous les projets et groupes (`omarchy-shell projects picker`).
 - **Créer** : un groupe, ou un projet en simple dossier, dépôt git local ou dépôt GitHub (via `gh`, avec choix du propriétaire et de la visibilité). Confettis à la clé.
 - **Supprimer** : vers la corbeille système uniquement, après une alerte qui signale le travail non commité ou non poussé ; bouton « Restaurer » dans la notification.
+
+## Installation
+
+```bash
+git clone https://github.com/catmargiela/ownwidget ~/Documents/perso/ownwidget
+cd ~/Documents/perso/ownwidget
+./install.sh
+```
+
+Le script crée des liens dans `~/.config/omarchy/plugins/`, copie les icônes d'applications depuis le système, active les plugins et redémarre le shell. Il affiche aussi les raccourcis clavier conseillés :
+
+| Raccourci | Action |
+|---|---|
+| `Super + Alt + A` | Terminal de l'agent suivant |
+| `Super + Alt + P` | Fenêtre centrale des projets |
+
+Désinstaller : `./install.sh --uninstall`.
+
+Prérequis : Omarchy (shell Quickshell), Python 3, `git`, `gh` (création GitHub), `gio` (corbeille), `notify-send`, une police Nerd Font (JetBrainsMono Nerd Font).
