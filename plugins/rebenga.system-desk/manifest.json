@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "rebenga.system-desk",
+  "name": "Système (bureau)",
+  "version": "0.1.0",
+  "author": "rebenga",
+  "description": "Carte de bureau : processeur, mémoire, batterie, réseau, état de la carte NVIDIA, ventilateurs, processus, disque et nettoyage des gros dossiers.",
+  "kinds": ["service"],
+  "entryPoints": {
+    "service": "Widget.qml"
+  }
+}
