@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "rebenga.agents-desk",
+  "name": "Agents (bureau)",
+  "version": "0.1.0",
+  "author": "rebenga",
+  "description": "Carte de bureau : sessions Claude Code / Codex actives, alerte quand un agent vous attend, activité récente, limites et statistiques.",
+  "kinds": ["service"],
+  "entryPoints": {
+    "service": "Widget.qml"
+  }
+}
