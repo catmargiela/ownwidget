@@ -11,6 +11,8 @@ Tout est écrit en QML (plugins du shell Omarchy) avec un petit script Python pa
 
 Carte posée sur le bureau, sous les fenêtres.
 
+<p align="center"><img src="docs/agents-desk.png" alt="Carte Agents : sessions actives, activité, limites et statistiques" width="380"></p>
+
 - **Sessions actives** : une carte par session Claude Code ou Codex (projet, durée, dernière action). Un clic saute sur le terminal de la session, même sur un autre espace de travail.
 - **Alerte** : le cadre clignote quand un agent attend une permission ou votre réponse ; notification avec un bouton « Y aller ».
 - **Nouvelle session** : notification « Y aller » à chaque nouvelle session.
