@@ -4,6 +4,7 @@ Desktop widgets for [Omarchy](https://omarchy.org) (Hyprland + the Quickshell-ba
 
 - **Agents**: a desktop card that tracks your Claude Code / Codex sessions.
 - **Projects**: a bar at the bottom of the screen to open, create and organise the projects in `~/Documents`.
+- **System**: a desktop card with CPU, memory, battery, network, NVIDIA power state, fans, top processes and disk cleanup.
 
 Everything is written in QML (Omarchy shell plugins) with one small Python script per widget, no external dependencies. The interface itself is in French.
 
@@ -34,6 +35,17 @@ A horizontal bar at the bottom of the desktop, for projects laid out as `~/Docum
 - **Centre picker**: search across every project and group (`omarchy-shell projects picker`).
 - **Create**: a group, or a project as a plain folder, a local git repo or a GitHub repo (through `gh`, with owner and visibility selection). Confetti included.
 - **Delete**: to the system trash only, after an alert that flags uncommitted or unpushed work; a "Restaurer" (restore) button in the notification undoes it.
+
+## System (`rebenga.system-desk`)
+
+A card in the top-left corner of the desktop, below your windows.
+
+- **Tiles**: CPU (usage, package temperature, load, sparkline), memory (with swap), battery or AC (watts, time left), network (down/up with sparkline).
+- **NVIDIA**: shows whether the discrete GPU is asleep or awake — and which programs keep it awake — without ever waking it up (`nvidia-smi` only runs while it is already on). Handy on hybrid laptops.
+- **Fans and SSD**: fan speeds (ASUS) and NVMe temperature.
+- **Processes**: top consumers by CPU and by memory, grouped by program.
+- **Disk**: usage, then the biggest folders (caches, trash, `node_modules` under `~/Documents`, pacman cache, downloads…), measured with `nice`/`ionice` every 30 min or on demand.
+- **Cleanup**: one click per regenerable folder (app caches, npm cache, `node_modules`, trash), always behind a confirmation that shows the space to free. The pacman cache gets a copyable `sudo paccache -rk1` instead, since it needs root.
 
 ## Installation
 
