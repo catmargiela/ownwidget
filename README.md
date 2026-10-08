@@ -49,3 +49,14 @@ Le script crée des liens dans `~/.config/omarchy/plugins/`, copie les icônes d
 Désinstaller : `./install.sh --uninstall`.
 
 Prérequis : Omarchy (shell Quickshell), Python 3, `git`, `gh` (création GitHub), `gio` (corbeille), `notify-send`, une police Nerd Font (JetBrainsMono Nerd Font).
+
+## Notes
+
+- **Disque** : les widgets ne font que lire. Seul fichier écrit : un historique des ouvertures plafonné à 200 entrées dans `~/.local/state/rebenga-projects/history.json`.
+- **Processeur** : les deux scripts de surveillance vérifient les dates de modification toutes les 2 s et n'envoient de données au shell que lorsqu'il y a un changement.
+- **Développement** : le rechargement à chaud du shell garde l'ancien QML en cache ; après une modification, lancez `omarchy restart shell`.
+- **Icônes** : les icônes VS Code, Claude et Fichiers ne sont pas incluses dans le dépôt (marques de leurs éditeurs) ; `install.sh` les copie depuis votre système.
+
+## Licence
+
+MIT
